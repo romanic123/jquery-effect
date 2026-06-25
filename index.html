@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Effects Demo</title>
+    <!-- Link external style sheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Include jQuery CDN Library -->
+    <script src="https://jquery.com"></script>
+</head>
+<body>
+
+    <h2>Demonstrating Flower Effects</h2>
+    <p>Use the controls below to animate, grow, or shrink the flower.</p>
+
+    <!-- Visibility Controls -->
+    <button id="fadeBtn">Fade Out / In</button>
+    <button id="slideBtn">Slide Up / Down</button>
+    
+    <!-- Size Controls -->
+    <button id="growBtn" class="control-btn">Grow Flower 🌸</button>
+    <button id="shrinkBtn" class="control-btn">Shrink Flower 🌱</button>
+
+    <div class="flower-container">
+        <!-- FIXED: Updated broken W3C XML Namespace attribute string to official standard -->
+        <svg id="targetFlower" viewBox="0 0 100 100" xmlns="http://w3.org">
+            <circle cx="50" cy="50" r="15" fill="#fbc02d" />
+            <circle cx="50" cy="25" r="18" fill="#e91e63" opacity="0.8" />
+            <circle cx="50" cy="75" r="18" fill="#e91e63" opacity="0.8" />
+            <circle cx="25" cy="50" r="18" fill="#e91e63" opacity="0.8" />
+            <circle cx="75" cy="50" r="18" fill="#e91e63" opacity="0.8" />
+        </svg>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let currentWidth = 150;
+            let config = null;
+
+            // AJAX call using jQuery to fetch properties from your local data file
+            $.getJSON('data.json', function(data) {
+                config = data;
+            }).fail(function() {
+                console.error("Could not load constraints from data.json.");
+            });
+
+            // jQuery Fade Toggle Effect
+            $('#fadeBtn').click(function() {
+                $('#targetFlower').fadeToggle(config ? config.animationSpeed : 400);
+            });
+
+            // jQuery Slide Toggle Effect
+            $('#slideBtn').click(function() {
+                $('#targetFlower').slideToggle(config ? config.animationSpeed : 400);
+            });
+
+            // jQuery Grow Logic via CSS Object Modification
+            $('#growBtn').click(function() {
+                let max = config ? config.maxWidth : 310;
+                let step = config ? config.stepSize : 40;
+                let speed = config ? config.animationSpeed : 400;
+
+                if (currentWidth < max) {
+                    currentWidth += step;
+                    $('#targetFlower').animate({
+                        width: currentWidth + "px",
+                        height: currentWidth + "px"
+                    }, speed);
+                }
+            });
+
+            // jQuery Shrink Logic via CSS Object Modification
+            $('#shrinkBtn').click(function() {
+                let min = config ? config.minWidth : 70;
+                let step = config ? config.stepSize : 40;
+                let speed = config ? config.animationSpeed : 400;
+
+                if (currentWidth > min) {
+                    currentWidth -= step;
+                    $('#targetFlower').animate({
+                        width: currentWidth + "px",
+                        height: currentWidth + "px"
+                    }, speed);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

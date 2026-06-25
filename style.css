@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f9;
+    text-align: center;
+}
+
+.flower-container {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#targetFlower {
+    width: 150px;
+    height: 150px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #c2185b;
+}
+
+.control-btn {
+    background-color: #2ecc71;
+}
+
+.control-btn:hover {
+    background-color: #27ae60;
+}
