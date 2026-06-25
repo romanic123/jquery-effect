@@ -6,8 +6,6 @@
     <title>Flower Effects Demo</title>
     <!-- Link external style sheet -->
     <link rel="stylesheet" href="style.css">
-    <!-- Include jQuery CDN Library -->
-    <script src="https://jquery.com"></script>
 </head>
 <body>
 
@@ -34,54 +32,68 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const flower = document.getElementById('targetFlower');
             let currentWidth = 150;
-            
-            // LOCAL DATA FALLBACK: Ensures controls work immediately on GitHub Pages
+            let isHidden = false;
+            let isSlidUp = false;
+
+            // Database configurations matching data.json rules
             let config = {
                 "minWidth": 70,
                 "maxWidth": 310,
-                "stepSize": 40,
-                "animationSpeed": 400
+                "stepSize": 40
             };
 
-            // Attempting AJAX configuration fetch from data.json
-            $.getJSON('data.json', function(data) {
-                config = data; // Seamlessly switch to network data if available
-                console.log("Configuration successfully loaded from data.json via AJAX.");
-            }).fail(function() {
-                console.log("Using built-in config fallback settings.");
-            });
+            // TRUE AJAX: Asynchronously load settings from data.json file mapping
+            fetch('data.json')
+                .then(response => {
+                    if (response.ok) return response.json();
+                    throw new Error('Fallback used');
+                })
+                .then(data => {
+                    config = data;
+                    console.log("Configuration successfully parsed via AJAX.");
+                })
+                .catch(() => console.log("Running on built-in data configuration rules."));
 
-            // jQuery Fade Toggle Effect
-            $('#fadeBtn').click(function() {
-                $('#targetFlower').fadeToggle(config.animationSpeed);
-            });
-
-            // jQuery Slide Toggle Effect
-            $('#slideBtn').click(function() {
-                $('#targetFlower').slideToggle(config.animationSpeed);
-            });
-
-            // jQuery Grow Logic
-            $('#growBtn').click(function() {
-                if (currentWidth < config.maxWidth) {
-                    currentWidth += config.stepSize;
-                    $('#targetFlower').animate({
-                        width: currentWidth + "px",
-                        height: currentWidth + "px"
-                    }, config.animationSpeed);
+            // Native Fade Effect implementation
+            document.getElementById('fadeBtn').addEventListener('click', function() {
+                if (!isHidden) {
+                    flower.style.opacity = "0";
+                    isHidden = true;
+                } else {
+                    flower.style.opacity = "1";
+                    isHidden = false;
                 }
             });
 
-            // jQuery Shrink Logic
-            $('#shrinkBtn').click(function() {
+            // Native Slide Effect implementation
+            document.getElementById('slideBtn').addEventListener('click', function() {
+                if (!isSlidUp) {
+                    flower.style.transform = "scaleY(0)";
+                    isSlidUp = true;
+                } else {
+                    flower.style.transform = "scaleY(1)";
+                    isSlidUp = false;
+                }
+            });
+
+            // Grow Animation Logic
+            document.getElementById('growBtn').addEventListener('click', function() {
+                if (currentWidth < config.maxWidth) {
+                    currentWidth += config.stepSize;
+                    flower.style.width = currentWidth + "px";
+                    flower.style.height = currentWidth + "px";
+                }
+            });
+
+            // Shrink Animation Logic
+            document.getElementById('shrinkBtn').addEventListener('click', function() {
                 if (currentWidth > config.minWidth) {
                     currentWidth -= config.stepSize;
-                    $('#targetFlower').animate({
-                        width: currentWidth + "px",
-                        height: currentWidth + "px"
-                    }, config.animationSpeed);
+                    flower.style.width = currentWidth + "px";
+                    flower.style.height = currentWidth + "px";
                 }
             });
         });
