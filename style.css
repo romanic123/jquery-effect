@@ -16,6 +16,10 @@ body {
 #targetFlower {
     width: 150px;
     height: 150px;
+    opacity: 1;
+    transform: scaleY(1);
+    /* This handles the smooth sliding, fading, and growing animations natively */
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
 }
 
 button {
