@@ -32,10 +32,10 @@ body {
     position: absolute;
     width: 140px;
     height: 35px;
-    background-color: rgba(0, 0, 0, 0.15); /* Soft dark floor profile ambient occlusion */
+    background-color: rgba(0, 0, 0, 0.15); /* Soft floor profile ambient occlusion */
     border-radius: 50%;
     filter: blur(6px);
-    bottom: 60px;
+    bottom: 110px;
     z-index: 1;
     transition: opacity 0.4s ease;
 }
