@@ -22,89 +22,87 @@
     <button id="growBtn" class="control-btn">Grow Petals 🌸</button>
     <button id="shrinkBtn" class="control-btn">Shrink Petals 🌱</button>
 
-    <!-- Fixed Area Container to hold both the flower and its persistent shadow -->
+    <!-- Structural Layout Bounding Box Area -->
     <div class="flower-container">
-        <!-- The Shadow Impact Element stays behind when flower slides up -->
+        <!-- Persistent Shadow Footprint remains perfectly visible on Slide Up -->
         <div id="flowerShadow" class="shadow-impact"></div>
         
-        <!-- Interactive HTML/CSS Flower Core Construction -->
-        <div id="targetFlower" class="flower-core">
-            <div class="center-bud"></div>
-            <!-- Initial 4 base petals -->
-            <div class="petal p1"></div>
-            <div class="petal p2"></div>
-            <div class="petal p3"></div>
-            <div class="petal p4"></div>
+        <!-- Animated Slide Element Box Wrapper -->
+        <div id="slideWrapper">
+            <div id="targetFlower" class="flower-core">
+                <div class="center-bud"></div>
+                <!-- Initial base petals -->
+                <div class="petal p1"></div>
+                <div class="petal p2"></div>
+                <div class="petal p3"></div>
+                <div class="petal p4"></div>
+            </div>
         </div>
     </div>
 
     <script>
         $(document).ready(function() {
-            // Local fallback configurations simulating data.json retrieval criteria
+            // Local parameter configuration tracking rules
             let config = {
                 "maxPetals": 12,
                 "minPetals": 4,
                 "speed": 400
             };
 
-            // Attempt AJAX tracking mapping configurations from data.json file
+            // Read settings safely from data.json file
             $.getJSON('data.json', function(data) {
                 config = data;
             }).fail(function() {
-                console.log("Using default configuration constraints matrix.");
+                console.log("Using internal local layout rules configuration matrix.");
             });
 
-            // Toggle visibility using jQuery Fade
+            // Target Visibility via jQuery Fade Toggle
             $('#fadeBtn').click(function() {
-                $('#targetFlower').fadeToggle(config.speed);
-                $('#flowerShadow').fadeToggle(config.speed); // Shadow fades away with the flower
+                $('#slideWrapper').stop().fadeToggle(config.speed);
+                $('#flowerShadow').stop().fadeToggle(config.speed);
             });
 
-            // Toggle sliding action while leaving the shadow impact element completely intact
+            // Target Visibility via jQuery Slide Toggle (Leaves Shadow Intact!)
             $('#slideBtn').click(function() {
-                $('#targetFlower').slideToggle(config.speed);
-                // Shadow does NOT slide, creating the desired ghost footprint silhouette effect
+                $('#slideWrapper').stop().slideToggle(config.speed);
             });
 
-            // Dynamic Grow Logic: Generates and maps new structural nodes into the tree
+            // Structural Node Creation Grow Logic
             $('#growBtn').click(function() {
                 let currentPetals = $('.petal').length;
 
                 if (currentPetals < config.maxPetals) {
                     let nextIndex = currentPetals + 1;
-                    // Calculate rotational angle alignment for even visual dispersion
                     let angle = (360 / nextIndex);
 
-                    // Create new dynamic DOM node layout structure
+                    // Generate clean dynamic DOM node markup
                     let newPetal = $('<div class="petal extra-petal"></div>');
                     $('#targetFlower').append(newPetal);
 
-                    // Re-calculate and animate all petals into optimal distribution balance positions
+                    // Re-calculate layout balance vectors smoothly
                     $('.petal').each(function(index) {
                         let currentAngle = angle * index;
                         $(this).css({
-                            'transform': 'rotate(' + currentAngle + 'deg) translateY(-35px)'
+                            'transform': 'translate(-50%, -50%) rotate(' + currentAngle + 'deg) translateY(-40px)'
                         });
                     });
                 }
             });
 
-            // Dynamic Shrink Logic: Safely targeted deletion of newly added external nodes
+            // Structural Node Deletion Shrink Logic
             $('#shrinkBtn').click(function() {
                 let currentPetals = $('.petal').length;
 
                 if (currentPetals > config.minPetals) {
-                    // Remove the very last added dynamic node element wrapper matching signature criteria
                     $('.petal').last().remove();
 
-                    // Readjust and re-balance remaining layout structure rotational spacing angles smoothly
                     let postRemovalCount = $('.petal').length;
                     let angle = (360 / postRemovalCount);
 
                     $('.petal').each(function(index) {
                         let currentAngle = angle * index;
                         $(this).css({
-                            'transform': 'rotate(' + currentAngle + 'deg) translateY(-35px)'
+                            'transform': 'translate(-50%, -50%) rotate(' + currentAngle + 'deg) translateY(-40px)'
                         });
                     });
                 }
