@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Flower Effects Demo</title>
+    <title>Advanced Flower Effects Demo</title>
     <!-- Link external style sheet -->
     <link rel="stylesheet" href="style.css">
     <!-- Include jQuery CDN Library -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://jquery.com"></script>
 </head>
 <body>
 
@@ -22,16 +22,16 @@
     <button id="growBtn" class="control-btn">Grow Petals 🌸</button>
     <button id="shrinkBtn" class="control-btn">Shrink Petals 🌱</button>
 
-    <!-- Outer Positioning Space Wrapper -->
+    <!-- Master Layout Viewport Box -->
     <div class="flower-container">
-        <!-- Persistent Shadow Footprint remains visible on Slide Up -->
+        <!-- Persistent Floor Shadow Impact remains visible on Slide Up -->
         <div id="flowerShadow" class="shadow-impact"></div>
         
-        <!-- FIXED: Isolated Animating wrapper block layout -->
+        <!-- Separate isolated Animating wrapper block layout -->
         <div id="slideWrapper">
             <div id="targetFlower" class="flower-core">
                 <div class="center-bud"></div>
-                <!-- Initial 4 base petals -->
+                <!-- Initial 4 base petals constructed as clean HTML/CSS shapes -->
                 <div class="petal p1"></div>
                 <div class="petal p2"></div>
                 <div class="petal p3"></div>
@@ -42,18 +42,21 @@
 
     <script>
         $(document).ready(function() {
-            // Local fallback configurations simulating data.json limits mapping criteria
+            let currentWidth = 150;
+            
+            // LOCAL CONFIGURATION FALLBACK: Prevents folder path blocks on GitHub Pages!
             let config = {
                 "maxPetals": 12,
                 "minPetals": 4,
                 "speed": 400
             };
 
-            // Attempt AJAX tracking mapping configurations from data.json file
+            // Attempt AJAX tracking mapping configurations from data.json file safely
             $.getJSON('data.json', function(data) {
                 config = data;
+                console.log("External database configuration file synced successfully.");
             }).fail(function() {
-                console.log("Using internal local layout rules configuration matrix.");
+                console.log("Using built-in layout configuration rules container matrix.");
             });
 
             // Target Visibility via jQuery Fade Toggle
@@ -67,7 +70,7 @@
                 $('#slideWrapper').stop().slideToggle(config.speed);
             });
 
-            // Structural Node Creation Grow Logic
+            // Procedural Node Creation Grow Logic
             $('#growBtn').click(function() {
                 let currentPetals = $('.petal').length;
 
@@ -75,11 +78,11 @@
                     let nextIndex = currentPetals + 1;
                     let angle = (360 / nextIndex);
 
-                    // Generate clean dynamic DOM node markup
+                    // Generate clean dynamic DOM node markup elements
                     let newPetal = $('<div class="petal extra-petal"></div>');
                     $('#targetFlower').append(newPetal);
 
-                    // Re-calculate layout balance vectors smoothly
+                    // Re-calculate layout balance rotation vectors smoothly
                     $('.petal').each(function(index) {
                         let currentAngle = angle * index;
                         $(this).css({
@@ -89,7 +92,7 @@
                 }
             });
 
-            // Structural Node Deletion Shrink Logic
+            // Procedural Node Deletion Shrink Logic
             $('#shrinkBtn').click(function() {
                 let currentPetals = $('.petal').length;
 
