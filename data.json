@@ -1,6 +1,5 @@
 {
-  "minWidth": 70,
-  "maxWidth": 310,
-  "stepSize": 40,
-  "animationSpeed": 400
+  "maxPetals": 16,
+  "minPetals": 4,
+  "speed": 400
 }
