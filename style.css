@@ -5,7 +5,7 @@ body {
     text-align: center;
 }
 
-/* Base structural bounding flexbox viewport wrapper */
+/* Master viewport bounding box wrapper alignment mechanics */
 .flower-container {
     position: relative;
     height: 350px;
@@ -16,7 +16,7 @@ body {
     justify-content: center;
 }
 
-/* Separate Slide Animating wrapper block layout */
+/* Separate Slide Animating wrapper block layout mapping space */
 #slideWrapper {
     position: relative;
     width: 200px;
@@ -27,12 +27,12 @@ body {
     z-index: 3;
 }
 
-/* Shadow Element remains fixed on background plate layer space */
+/* Shadow drop profile remains fixed on background canvas on Slide Up */
 .shadow-impact {
     position: absolute;
     width: 140px;
     height: 35px;
-    background-color: rgba(0, 0, 0, 0.15); /* Soft floor profile ambient occlusion */
+    background-color: rgba(0, 0, 0, 0.15); /* Soft gray occlusion mask shadow */
     border-radius: 50%;
     filter: blur(6px);
     bottom: 110px;
@@ -40,14 +40,14 @@ body {
     transition: opacity 0.4s ease;
 }
 
-/* Isolated container to balance rotating absolute children layout nodes */
+/* Central container layer to isolate rotating absolute children layout nodes */
 .flower-core {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-/* Golden flower center cap profile */
+/* Yellow flower center cap bud profile */
 .center-bud {
     position: absolute;
     top: 50%;
@@ -61,7 +61,7 @@ body {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16);
 }
 
-/* Master geometric configuration rules for petal element array layers */
+/* Master geometric parameter configurations for petal array layers */
 .petal {
     position: absolute;
     top: 50%;
@@ -73,11 +73,11 @@ body {
     opacity: 0.85;
     z-index: 4;
     transform-origin: center center;
-    /* Handles procedural rotational scaling movements uniformly */
+    /* Manages smooth transition curves for layout rearrangements natively */
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Base starting locations utilizing uniform CSS matrix coordinate translations */
+/* Base default orientation spacing translations */
 .p1 { transform: translate(-50%, -50%) rotate(0deg) translateY(-40px); }
 .p2 { transform: translate(-50%, -50%) rotate(90deg) translateY(-40px); }
 .p3 { transform: translate(-50%, -50%) rotate(180deg) translateY(-40px); }
