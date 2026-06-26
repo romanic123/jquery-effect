@@ -7,7 +7,7 @@
     <!-- Link external style sheet -->
     <link rel="stylesheet" href="style.css">
     <!-- Include jQuery CDN Library -->
-    <script src="https://jquery.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
@@ -22,16 +22,16 @@
     <button id="growBtn" class="control-btn">Grow Petals 🌸</button>
     <button id="shrinkBtn" class="control-btn">Shrink Petals 🌱</button>
 
-    <!-- Structural Layout Bounding Box Area -->
+    <!-- Outer Positioning Space Wrapper -->
     <div class="flower-container">
-        <!-- Persistent Shadow Footprint remains perfectly visible on Slide Up -->
+        <!-- Persistent Shadow Footprint remains visible on Slide Up -->
         <div id="flowerShadow" class="shadow-impact"></div>
         
-        <!-- Animated Slide Element Box Wrapper -->
+        <!-- FIXED: Isolated Animating wrapper block layout -->
         <div id="slideWrapper">
             <div id="targetFlower" class="flower-core">
                 <div class="center-bud"></div>
-                <!-- Initial base petals -->
+                <!-- Initial 4 base petals -->
                 <div class="petal p1"></div>
                 <div class="petal p2"></div>
                 <div class="petal p3"></div>
@@ -42,14 +42,14 @@
 
     <script>
         $(document).ready(function() {
-            // Local parameter configuration tracking rules
+            // Local fallback configurations simulating data.json limits mapping criteria
             let config = {
                 "maxPetals": 12,
                 "minPetals": 4,
                 "speed": 400
             };
 
-            // Read settings safely from data.json file
+            // Attempt AJAX tracking mapping configurations from data.json file
             $.getJSON('data.json', function(data) {
                 config = data;
             }).fail(function() {
