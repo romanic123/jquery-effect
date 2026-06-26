@@ -3,97 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower Effects Demo</title>
+    <title>Dynamic Flower Effects Demo</title>
     <!-- Link external style sheet -->
     <link rel="stylesheet" href="style.css">
+    <!-- Include jQuery CDN Library -->
+    <script src="https://jquery.com"></script>
 </head>
 <body>
 
-    <h2>Demonstrating Flower Effects</h2>
-    <p>Use the controls below to animate, grow, or shrink the flower.</p>
+    <h2>Demonstrating Advanced Flower Effects</h2>
+    <p>Use the controls below to dynamically grow petals, shrink elements, or trigger slide actions.</p>
 
     <!-- Visibility Controls -->
     <button id="fadeBtn">Fade Out / In</button>
     <button id="slideBtn">Slide Up / Down</button>
     
     <!-- Size Controls -->
-    <button id="growBtn" class="control-btn">Grow Flower 🌸</button>
-    <button id="shrinkBtn" class="control-btn">Shrink Flower 🌱</button>
+    <button id="growBtn" class="control-btn">Grow Petals 🌸</button>
+    <button id="shrinkBtn" class="control-btn">Shrink Petals 🌱</button>
 
+    <!-- Fixed Area Container to hold both the flower and its persistent shadow -->
     <div class="flower-container">
-        <!-- Official W3C Namespace configuration validated -->
-        <svg id="targetFlower" viewBox="0 0 100 100" xmlns="http://w3.org">
-            <circle cx="50" cy="50" r="15" fill="#fbc02d" />
-            <circle cx="50" cy="25" r="18" fill="#e91e63" opacity="0.8" />
-            <circle cx="50" cy="75" r="18" fill="#e91e63" opacity="0.8" />
-            <circle cx="25" cy="50" r="18" fill="#e91e63" opacity="0.8" />
-            <circle cx="75" cy="50" r="18" fill="#e91e63" opacity="0.8" />
-        </svg>
+        <!-- The Shadow Impact Element stays behind when flower slides up -->
+        <div id="flowerShadow" class="shadow-impact"></div>
+        
+        <!-- Interactive HTML/CSS Flower Core Construction -->
+        <div id="targetFlower" class="flower-core">
+            <div class="center-bud"></div>
+            <!-- Initial 4 base petals -->
+            <div class="petal p1"></div>
+            <div class="petal p2"></div>
+            <div class="petal p3"></div>
+            <div class="petal p4"></div>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const flower = document.getElementById('targetFlower');
-            let currentWidth = 150;
-            let isHidden = false;
-            let isSlidUp = false;
-
-            // Database configurations matching data.json rules
+        $(document).ready(function() {
+            // Local fallback configurations simulating data.json retrieval criteria
             let config = {
-                "minWidth": 70,
-                "maxWidth": 310,
-                "stepSize": 40
+                "maxPetals": 12,
+                "minPetals": 4,
+                "speed": 400
             };
 
-            // TRUE AJAX: Asynchronously load settings from data.json file mapping
-            fetch('data.json')
-                .then(response => {
-                    if (response.ok) return response.json();
-                    throw new Error('Fallback used');
-                })
-                .then(data => {
-                    config = data;
-                    console.log("Configuration successfully parsed via AJAX.");
-                })
-                .catch(() => console.log("Running on built-in data configuration rules."));
+            // Attempt AJAX tracking mapping configurations from data.json file
+            $.getJSON('data.json', function(data) {
+                config = data;
+            }).fail(function() {
+                console.log("Using default configuration constraints matrix.");
+            });
 
-            // Native Fade Effect implementation
-            document.getElementById('fadeBtn').addEventListener('click', function() {
-                if (!isHidden) {
-                    flower.style.opacity = "0";
-                    isHidden = true;
-                } else {
-                    flower.style.opacity = "1";
-                    isHidden = false;
+            // Toggle visibility using jQuery Fade
+            $('#fadeBtn').click(function() {
+                $('#targetFlower').fadeToggle(config.speed);
+                $('#flowerShadow').fadeToggle(config.speed); // Shadow fades away with the flower
+            });
+
+            // Toggle sliding action while leaving the shadow impact element completely intact
+            $('#slideBtn').click(function() {
+                $('#targetFlower').slideToggle(config.speed);
+                // Shadow does NOT slide, creating the desired ghost footprint silhouette effect
+            });
+
+            // Dynamic Grow Logic: Generates and maps new structural nodes into the tree
+            $('#growBtn').click(function() {
+                let currentPetals = $('.petal').length;
+
+                if (currentPetals < config.maxPetals) {
+                    let nextIndex = currentPetals + 1;
+                    // Calculate rotational angle alignment for even visual dispersion
+                    let angle = (360 / nextIndex);
+
+                    // Create new dynamic DOM node layout structure
+                    let newPetal = $('<div class="petal extra-petal"></div>');
+                    $('#targetFlower').append(newPetal);
+
+                    // Re-calculate and animate all petals into optimal distribution balance positions
+                    $('.petal').each(function(index) {
+                        let currentAngle = angle * index;
+                        $(this).css({
+                            'transform': 'rotate(' + currentAngle + 'deg) translateY(-35px)'
+                        });
+                    });
                 }
             });
 
-            // Native Slide Effect implementation
-            document.getElementById('slideBtn').addEventListener('click', function() {
-                if (!isSlidUp) {
-                    flower.style.transform = "scaleY(0)";
-                    isSlidUp = true;
-                } else {
-                    flower.style.transform = "scaleY(1)";
-                    isSlidUp = false;
-                }
-            });
+            // Dynamic Shrink Logic: Safely targeted deletion of newly added external nodes
+            $('#shrinkBtn').click(function() {
+                let currentPetals = $('.petal').length;
 
-            // Grow Animation Logic
-            document.getElementById('growBtn').addEventListener('click', function() {
-                if (currentWidth < config.maxWidth) {
-                    currentWidth += config.stepSize;
-                    flower.style.width = currentWidth + "px";
-                    flower.style.height = currentWidth + "px";
-                }
-            });
+                if (currentPetals > config.minPetals) {
+                    // Remove the very last added dynamic node element wrapper matching signature criteria
+                    $('.petal').last().remove();
 
-            // Shrink Animation Logic
-            document.getElementById('shrinkBtn').addEventListener('click', function() {
-                if (currentWidth > config.minWidth) {
-                    currentWidth -= config.stepSize;
-                    flower.style.width = currentWidth + "px";
-                    flower.style.height = currentWidth + "px";
+                    // Readjust and re-balance remaining layout structure rotational spacing angles smoothly
+                    let postRemovalCount = $('.petal').length;
+                    let angle = (360 / postRemovalCount);
+
+                    $('.petal').each(function(index) {
+                        let currentAngle = angle * index;
+                        $(this).css({
+                            'transform': 'rotate(' + currentAngle + 'deg) translateY(-35px)'
+                        });
+                    });
                 }
             });
         });
