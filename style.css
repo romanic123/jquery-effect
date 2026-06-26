@@ -5,69 +5,83 @@ body {
     text-align: center;
 }
 
-/* Master viewport bounding box wrapper */
+/* Base structural bounding flexbox viewport wrapper */
 .flower-container {
     position: relative;
-    height: 300px;
+    height: 350px;
+    width: 100%;
+    margin-top: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
 }
 
-/* Persistent Shadow Impact Element left behind on Slide Up */
+/* Separate Slide Animating wrapper block layout */
+#slideWrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+/* Shadow Element remains fixed on background plate layer space */
 .shadow-impact {
     position: absolute;
-    width: 130px;
-    height: 130px;
-    background-color: rgba(0, 0, 0, 0.12); /* Subtle dark silhouette drop footprint */
+    width: 140px;
+    height: 35px;
+    background-color: rgba(0, 0, 0, 0.15); /* Soft dark floor profile ambient occlusion */
     border-radius: 50%;
-    filter: blur(8px); /* Blurs edges to mimic realistic floor ambient occlusion maps */
+    filter: blur(6px);
+    bottom: 60px;
     z-index: 1;
+    transition: opacity 0.4s ease;
 }
 
-/* Structural core wrapper housing structural flower component nodes */
+/* Isolated container to balance rotating absolute children layout nodes */
 .flower-core {
     position: relative;
-    width: 150px;
-    height: 150px;
-    z-index: 2; /* Sits over the shadow element layer space layout */
+    width: 100%;
+    height: 100%;
 }
 
-/* Central hub node anchor */
+/* Golden flower center cap profile */
 .center-bud {
     position: absolute;
-    top: 60px;
-    left: 60px;
-    width: 30px;
-    height: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45px;
+    height: 45px;
     background-color: #fbc02d;
     border-radius: 50%;
-    z-index: 4;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 5;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
 }
 
-/* Base petal specification styles rules mapping framework */
+/* Master geometric configuration rules for petal element array layers */
 .petal {
     position: absolute;
-    top: 55px;
-    left: 55px;
-    width: 40px;
-    height: 40px;
+    top: 50%;
+    left: 50%;
+    width: 45px;
+    height: 65px;
     background-color: #e91e63;
-    border-radius: 50% 50% 0 50%;
+    border-radius: 50%;
     opacity: 0.85;
-    z-index: 3;
+    z-index: 4;
+    transform-origin: center center;
     /* Handles procedural rotational scaling movements uniformly */
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform-origin: center center;
 }
 
-/* Initial structural angular deployment orientations for default configuration elements */
-.p1 { transform: rotate(0deg) translateY(-35px); }
-.p2 { transform: rotate(90deg) translateY(-35px); }
-.p3 { transform: rotate(180deg) translateY(-35px); }
-.p4 { transform: rotate(270deg) translateY(-35px); }
+/* Base starting locations utilizing uniform CSS matrix coordinate translations */
+.p1 { transform: translate(-50%, -50%) rotate(0deg) translateY(-40px); }
+.p2 { transform: translate(-50%, -50%) rotate(90deg) translateY(-40px); }
+.p3 { transform: translate(-50%, -50%) rotate(180deg) translateY(-40px); }
+.p4 { transform: translate(-50%, -50%) rotate(270deg) translateY(-40px); }
 
 button {
     padding: 10px 15px;
